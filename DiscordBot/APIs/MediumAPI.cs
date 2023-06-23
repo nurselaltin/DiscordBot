@@ -1,28 +1,39 @@
-﻿using RestSharp;
-using System.Text.Json;
+﻿using DiscordBot.Utilities;
+using Newtonsoft.Json;
+using RestSharp;
+using System.Text;
 
 namespace DiscordBot.APIs
 {
     public class MediumAPI : IAPI
     {
         private readonly RestClient _client;
-
+        private readonly ConfigJSON _configJson;
+        public string _baseUrl { get; set; }
         public MediumAPI(string baseUrl)
         {
             _client = new RestClient(baseUrl);
+            _baseUrl = baseUrl;
+            //deseriliaze json
+            var json = string.Empty;
+            using (var fs = File.OpenRead("C:\\config.json"))
+            using (var sr = new StreamReader(fs, new UTF8Encoding(false)))
+            json = sr.ReadToEnd();
+            
+            _configJson = JsonConvert.DeserializeObject<ConfigJSON>(json);
         }
         public string Get(string endpoint)
         {
-            var request = new RestRequest(endpoint, Method.Get);
-
+            endpoint = endpoint + _configJson.Medium_userid + "/publications";
+            var request = new RestRequest(_baseUrl+endpoint, Method.Get);
+            request.AddHeader("Accept", "application/json");
+            request.AddHeader("Authorization", _configJson.Medium_token);
             var response = _client.Execute(request);
 
             if (response.StatusCode == System.Net.HttpStatusCode.OK)
             {
-                string res = response.Content;
-                var model = JsonSerializer.Deserialize<List<MediumAPIModel>>(res);
-                var link = model.OrderByDescending(x => x.created).FirstOrDefault().link;
-                return link;
+               var data = response.Content;
+               return data;
             }
             else
             {
@@ -32,14 +43,4 @@ namespace DiscordBot.APIs
         }
     }
 
-    public class MediumAPIModel
-    {
-        public string title { get; set; }
-        public string link { get; set; }
-        public string author { get; set; }
-        public double published { get; set; }
-        public double created { get; set; }
-        public List<string> category { get; set; }
-        public string content { get; set; }
-    }
 }
