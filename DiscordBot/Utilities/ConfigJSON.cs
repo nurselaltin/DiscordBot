@@ -20,5 +20,8 @@ namespace DiscordBot.Utilities
 
         [JsonProperty("medium_userid")]
         public string Medium_userid { get; private set; }
+
+        [JsonProperty("chatgpt_token")]
+        public string Chatgpt_token { get; private set; }
     }
 }
