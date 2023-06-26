@@ -1,4 +1,4 @@
-﻿using DiscordBot.Utilities;
+using DiscordBot.Utilities;
 using Newtonsoft.Json;
 using RestSharp;
 using System.Text;

@@ -43,4 +43,15 @@ namespace DiscordBot.APIs
         }
     }
 
+    public class MediumAPIModel
+    {
+        public string title { get; set; }
+        public string link { get; set; }
+        public string author { get; set; }
+        public double published { get; set; }
+        public double created { get; set; }
+        public List<string> category { get; set; }
+        public string content { get; set; }
+    }
+
 }

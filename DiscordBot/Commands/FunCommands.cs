@@ -31,5 +31,8 @@ namespace DSharpPlus.Commands
 
       await ctx.Channel.SendMessageAsync(link);
     }
+
+
+
   }
 }
