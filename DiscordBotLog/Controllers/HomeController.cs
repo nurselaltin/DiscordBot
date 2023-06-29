@@ -25,8 +25,9 @@ namespace DiscordBotLog.Controllers
         var model = new DiscordLogModel();
         model.OrderNo = str[0];
         model.DateTime = str[1];
-        model.Log = str[2].PadLeft(250);
-        model.Link = str[3];
+        model.Link = str[2];
+        model.Log = str[3].Substring(0, 50);
+        
         models.Add(model);
       }
 

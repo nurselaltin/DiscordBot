@@ -20,7 +20,7 @@ namespace DiscordBot.Services
         logs.Add(line);
       }
       var index = logs.Count;
-      string log = $"{index}###{dateTime}###{link}###{dateTime} tarihinde medium makale link({link}) önerildi.";
+      string log = $"{index}###{dateTime}###{link}###{dateTime} tarihinde medium makalesi önerildi.";
       logs.Add(log);
 
       File.WriteAllLines("D:\\DiscordBot\\discord_log.txt", logs);
