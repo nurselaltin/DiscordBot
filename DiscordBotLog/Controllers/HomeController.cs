@@ -1,6 +1,7 @@
 ﻿using DiscordBotLog.Models;
 using Microsoft.AspNetCore.Mvc;
 using System.Diagnostics;
+using System.Text.Unicode;
 
 namespace DiscordBotLog.Controllers
 {
@@ -15,7 +16,21 @@ namespace DiscordBotLog.Controllers
 
     public IActionResult Index()
     {
-      return View();
+      var models = new List<DiscordLogModel>();
+      var lines = System.IO.File.ReadAllLines("D:\\DiscordBot\\discord_log.txt");
+
+      foreach (string line in lines) {
+                
+        var str = line.Trim().Split("###");
+        var model = new DiscordLogModel();
+        model.OrderNo = str[0];
+        model.DateTime = str[1];
+        model.Log = str[2].PadLeft(250);
+        model.Link = str[3];
+        models.Add(model);
+      }
+
+      return View(models);
     }
 
     public IActionResult Privacy()
