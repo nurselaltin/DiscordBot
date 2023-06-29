@@ -1,10 +1,6 @@
-﻿using DiscordBot.APIs;
-using DiscordBot.Services;
-using DiscordBot.Utilities;
+﻿using DiscordBot.Services;
 using DSharpPlus.CommandsNext;
 using DSharpPlus.CommandsNext.Attributes;
-using Newtonsoft.Json;
-using System.Text;
 
 namespace DSharpPlus.Commands
 {
@@ -21,9 +17,7 @@ namespace DSharpPlus.Commands
     {
       var link = MediumService.GetArticleLink();
       await ctx.Channel.SendMessageAsync(link);
+      LogService.SaveLog(link);
     }
-
-
-
   }
 }
