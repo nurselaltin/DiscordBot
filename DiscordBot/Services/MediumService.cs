@@ -5,7 +5,7 @@ namespace DiscordBot.Services
     {
         public static string GetArticleLink()
         {
-          var links = File.ReadAllLines("D:\\medium_links.txt");
+          var links = File.ReadAllLines("D:\\DiscordBot\\medium_links.txt");
           var rnd = new Random();
           var index = rnd.Next(links.Count());
           string link = links[index];
