@@ -1,4 +1,5 @@
 ﻿using DiscordBot.APIs;
+using DiscordBot.Services;
 using DiscordBot.Utilities;
 using DSharpPlus.CommandsNext;
 using DSharpPlus.CommandsNext.Attributes;
@@ -18,17 +19,7 @@ namespace DSharpPlus.Commands
     [Command("article")]
     public async Task ArticleCommand(CommandContext ctx)
     {
-      //deseriliaze json
-      var json = string.Empty;
-      using (var fs = File.OpenRead("C:\\config.json"))
-      using (var sr = new StreamReader(fs, new UTF8Encoding(false)))
-      json = await sr.ReadToEndAsync();
-
-      //Medium api değiştirilecek
-      var configJson = JsonConvert.DeserializeObject<ConfigJSON>(json);
-      var medium = new MediumAPI(configJson.Medium_baseUrl);
-      var link  = medium.Get(configJson.Medium_endpoint);
-
+      var link = MediumService.GetArticleLink();
       await ctx.Channel.SendMessageAsync(link);
     }
 

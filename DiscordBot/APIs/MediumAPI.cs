@@ -5,6 +5,7 @@ using System.Text;
 
 namespace DiscordBot.APIs
 {
+    //Medium verilerini veren uygun bir api kaynağı bulunamadığı için bu sınıf kullanılmayacak.
     public class MediumAPI : IAPI
     {
         private readonly RestClient _client;
