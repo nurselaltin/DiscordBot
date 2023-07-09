@@ -19,5 +19,13 @@ namespace DSharpPlus.Commands
       await ctx.Channel.SendMessageAsync(link);
       LogService.SaveLog(link);
     }
+
+    [Command("youtube")]
+    public async Task YoutubeVideoCommand(CommandContext ctx)
+    {
+        var link = YoutubeService.GetYoutubeVideoLink();
+        await ctx.Channel.SendMessageAsync(link);
+        LogService.SaveLog(link);
+    }
   }
 }

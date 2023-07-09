@@ -26,7 +26,7 @@ namespace DiscordBotLog.Controllers
         model.OrderNo = str[0];
         model.DateTime = str[1];
         model.Link = str[2];
-        model.Log = str[3].Substring(0, 50);
+        model.Log = (str[3].Length > 49) ? str[3].Substring(0, 50) : str[3];
         
         models.Add(model);
       }
