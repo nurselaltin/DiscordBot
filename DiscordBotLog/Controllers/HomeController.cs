@@ -22,7 +22,7 @@ namespace DiscordBotLog.Controllers
             foreach (string line in lines)
             {
 
-                var str = line.Trim().Split("###");
+                var str = line.Trim().Split("####");
                 var model = new DiscordLogModel();
                 model.OrderNo = str[0];
                 model.DateTime = str[1];
