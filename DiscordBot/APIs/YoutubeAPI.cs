@@ -1,4 +1,6 @@
-﻿using DiscordBot.Utilities;
+﻿using Data.Entity;
+using DataAccess.Concrete;
+using DiscordBot.Utilities;
 using Google.Apis.Services;
 using Google.Apis.YouTube.v3;
 using Newtonsoft.Json;
@@ -35,7 +37,7 @@ namespace DiscordBot.APIs
             // Call the search.list method to retrieve results matching the specified query term.
             var searchListResponse = await searchListRequest.ExecuteAsync();
 
-            List<string> videos = new List<string>();
+            List<Link> videos = new List<Link>();
 
             // Add each result to the appropriate list, and then display the lists of
             // matching videos, channels, and playlists.
@@ -45,8 +47,15 @@ namespace DiscordBot.APIs
                 switch (searchResult.Id.Kind)
                 {
                     case "youtube#video":
-                       
-                        videos.Add(String.Format("https://www.youtube.com/embed/{0}", searchResult.Id.VideoId));
+
+                        var entity = new Link()
+                        {
+                            AccountName = channelName,
+                            TypeLink = 1,
+                            LinkAddress = String.Format("https://www.youtube.com/embed/{0}", searchResult.Id.VideoId),
+                            CreatedDate = DateTime.Now,
+                        };
+                        videos.Add(entity);
                         break;
 
                         //case "youtube#channel":
@@ -58,11 +67,21 @@ namespace DiscordBot.APIs
                         //    break;
                 }
             }
+
+            //Save Db
             if (videos.Count() > 0)
             {
-                File.WriteAllLines(@"D:\DiscordBot\youtube_video_links.txt", videos);
+                var dal = new LinkDal();
+                foreach (var link in videos)
+                {
+                    var res = dal.Find((c => c.LinkAddress.Equals(link) && c.TypeLink == 1 && c.IsDeleted == false));
+                    if (res != null)
+                        continue;
+                    dal.Add(link);
+                }
+           
             }
-            Console.WriteLine(String.Format("", string.Join("\n", videos)));
+
             //Console.WriteLine(String.Format("Channels:\n{0}\n", string.Join("\n", channels)));
             //Console.WriteLine(String.Format("Playlists:\n{0}\n", string.Join("\n", playlists)));
         }
