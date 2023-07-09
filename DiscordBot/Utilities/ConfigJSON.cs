@@ -20,5 +20,8 @@ namespace DiscordBot.Utilities
 
         [JsonProperty("medium_userid")]
         public string Medium_userid { get; private set; }
+
+        [JsonProperty("youtube_apiKey")]
+        public string Youtube_apiKey { get; private set; }
     }
 }
