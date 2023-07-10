@@ -17,21 +17,22 @@ namespace DiscordBotLog.Controllers
     public IActionResult Index()
     {
       var models = new List<DiscordLogModel>();
-      var lines = System.IO.File.ReadAllLines("D:\\DiscordBot\\discord_log.txt");
+            string dosyaYolu = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "discord_log.txt");
+            var lines = System.IO.File.ReadAllLines(dosyaYolu);
+            foreach (string line in lines)
+            {
 
-      foreach (string line in lines) {
-                
-        var str = line.Trim().Split("###");
-        var model = new DiscordLogModel();
-        model.OrderNo = str[0];
-        model.DateTime = str[1];
-        model.Link = str[2];
-        model.Log = (str[3].Length > 49) ? str[3].Substring(0, 50) : str[3];
-        
-        models.Add(model);
-      }
+                var str = line.Trim().Split("####");
+                var model = new DiscordLogModel();
+                model.OrderNo = str[0];
+                model.DateTime = str[1];
+                model.Link = str[2];
+                model.Log = (str[3].Length > 49) ? str[3].Substring(0, 50) : str[3];
 
-      return View(models);
+                models.Add(model);
+            }
+
+            return View(models);
     }
 
     public IActionResult Privacy()
