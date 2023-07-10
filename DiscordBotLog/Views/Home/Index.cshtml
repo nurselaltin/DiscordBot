@@ -42,6 +42,7 @@
                             <thead>
                                 <tr>
                                     <th scope="col">ORDER NO.</th>
+                                    <th scope="col">KAYNAK</th>
                                     <th scope="col">DATE</th>
                                     <th scope="col">LOG</th>
                                     <th scope="col">LINK</th>
@@ -52,8 +53,9 @@
                                 {
                                     <tr>
                                         <th scope="row"><b>#@item.OrderNo</b></th>
+                                        <td>@item.TypeLink</td>
                                         <td>@item.DateTime</td>
-                                        <td>@item.Log ...</td>
+                                        <td>@item.Log</td>
                                         <td><a href="@item.Link" class="tm-notification-link">makale</a></td>
                                     </tr>
                                 }
