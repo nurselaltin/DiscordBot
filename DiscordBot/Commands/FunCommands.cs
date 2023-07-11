@@ -16,16 +16,19 @@ namespace DSharpPlus.Commands
     public async Task ArticleCommand(CommandContext ctx)
     {
       var link = MediumService.GetArticleLink();
-      await ctx.Channel.SendMessageAsync(link);
-      LogService.SaveLog(link, 0);
+      await ctx.Channel.SendMessageAsync(link.LinkAddress);
+      LogService.SaveLog(link);
     }
 
     [Command("youtube")]
     public async Task YoutubeVideoCommand(CommandContext ctx)
     {
-      var link = YoutubeService.GetYoutubeVideoLink();
-      await ctx.Channel.SendMessageAsync(link);
-      LogService.SaveLog(link, 1);
+      var member = ctx.Member;
+      //Üyeye daha önce önerildi mi?Bir daha önerme
+      var link = YoutubeService.GetYoutubeVideoLink(member.DisplayName);
+      await ctx.Channel.SendMessageAsync(link.LinkAddress);
+      Console.WriteLine(member);
+      LogService.SaveLog(link);
     }
   }
 }

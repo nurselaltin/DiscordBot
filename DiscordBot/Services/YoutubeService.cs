@@ -1,14 +1,18 @@
 ﻿
+using Data.Entity;
+using DataAccess.Concrete;
+
 namespace DiscordBot.Services
 {
     public  class YoutubeService
     {
-        public static string GetYoutubeVideoLink()
+        public static Link GetYoutubeVideoLink(string member)
         {
-          var links = File.ReadAllLines("D:\\DiscordBot\\youtube_video_links.txt");
+          var linkDal = new LinkDal();
+          var links = linkDal.ToList(x => x.TypeLink == 1 && x.IsDeleted == false);
           var rnd = new Random();
           var index = rnd.Next(links.Count());
-          string link = links.Last();
+          var link = links.FirstOrDefault(x => x.ID == index);
 
           return link;
         }
