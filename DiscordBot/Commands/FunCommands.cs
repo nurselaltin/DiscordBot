@@ -17,15 +17,15 @@ namespace DSharpPlus.Commands
     {
       var link = MediumService.GetArticleLink();
       await ctx.Channel.SendMessageAsync(link);
-      LogService.SaveLog(link);
+      LogService.SaveLog(link, 0);
     }
 
     [Command("youtube")]
     public async Task YoutubeVideoCommand(CommandContext ctx)
     {
-        var link = YoutubeService.GetYoutubeVideoLink();
-        await ctx.Channel.SendMessageAsync(link);
-        LogService.SaveLog(link);
+      var link = YoutubeService.GetYoutubeVideoLink();
+      await ctx.Channel.SendMessageAsync(link);
+      LogService.SaveLog(link, 1);
     }
   }
 }

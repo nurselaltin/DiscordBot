@@ -1,29 +1,25 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using Data.Entity;
+using DataAccess.Concrete;
 
 namespace DiscordBot.Services
 {
   public class LogService
   {
-
-    public static void SaveLog(string link)
+    public static void SaveLog(string link, int typeLink)
     {
-      DateTime dateTime = DateTime.Now;
-      var logs = new List<string>();
-      
+      var dal = new DiscordLogDal();
+      var isLinkExist = dal.Find((c => c.Link.Equals(link) && c.TypeLink == 0 && c.IsDeleted == false));
 
-      var lines = File.ReadAllLines("D:\\DiscordBot\\discord_log.txt");
-      foreach (string line in lines) { 
-        logs.Add(line);
+      if (isLinkExist == null) {
+        var entity = new DiscordLog();
+        entity.AccountName = "";
+        entity.Description = "";
+        entity.TypeLink = typeLink;
+        entity.IsDeleted = false;
+        entity.CreatedDate = DateTime.Now;
+        entity.Link = link;
+        dal.Add(entity);  
       }
-      var index = logs.Count;
-      string log = $"{index}###{dateTime}###{link}###{dateTime} tarihinde linki önerildi.";
-      logs.Add(log);
-
-      File.WriteAllLines("D:\\DiscordBot\\discord_log.txt", logs);
     }
   }
 }
