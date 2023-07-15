@@ -5,7 +5,7 @@ namespace DiscordBot.Services
 {
   public class LogService
   {
-    public static void SaveLog(Link link)
+    public static void SaveLog(Link link, string member)
     {
       var dal = new DiscordLogDal();
       var isLinkExist = dal.Find((c => c.Link.Equals(link) && c.TypeLink == 0 && c.IsDeleted == false));
@@ -13,6 +13,7 @@ namespace DiscordBot.Services
       if (isLinkExist == null) {
         var entity = new DiscordLog();
         entity.AccountName = link.AccountName;
+        entity.Member = member;
         entity.Description = "";
         entity.TypeLink = link.TypeLink;
         entity.IsDeleted = false;

@@ -6,7 +6,7 @@ namespace DiscordBot.Services
 {
     public  class MediumService
     {
-        public static Link GetArticleLink()
+        public static Link GetArticleLink(string member)
         {
           var linkDal = new LinkDal();
           var links = linkDal.ToList(x => x.TypeLink == 0);
