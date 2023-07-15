@@ -9,7 +9,7 @@ namespace DiscordBot.Bots
     {
       var linkDal = new LinkDal();
       var links = linkDal.ToList();
-
+     
       if(links.Count() == 0)
       {
          //Choose to resource 
@@ -31,7 +31,7 @@ namespace DiscordBot.Bots
                  break;
          }
       }
-
+      
       var bot = new DiscordBot();
       bot.RunAsyc().GetAwaiter().GetResult();
       Console.ReadLine();
