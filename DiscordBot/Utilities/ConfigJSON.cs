@@ -4,6 +4,8 @@ namespace DiscordBot.Utilities
 {
     internal struct ConfigJSON
     {
+        [JsonProperty("discord_id")]
+        public string Discord_id { get; private set; }
         [JsonProperty("token")]
         public string Token { get; private set; }
         [JsonProperty("prefix")]

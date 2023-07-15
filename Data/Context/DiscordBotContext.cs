@@ -16,6 +16,8 @@ namespace DataAccess.Context
 
         public DbSet<DiscordLog> Logs { get; set; }
         public DbSet<Link> Links { get; set; }
+        public DbSet<User> Users { get; set; }
+        public DbSet<UserLinkMap> UserLinkMaps { get; set; }
     }
 
     public class settingFile

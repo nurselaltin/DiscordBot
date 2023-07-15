@@ -1,7 +1,10 @@
-﻿using DiscordBot.Utilities;
+﻿using Data.Entity;
+using DataAccess.Concrete;
+using DiscordBot.Utilities;
 using DSharpPlus;
 using DSharpPlus.Commands;
 using DSharpPlus.CommandsNext;
+using DSharpPlus.Entities;
 using DSharpPlus.EventArgs;
 using DSharpPlus.Interactivity;
 using DSharpPlus.Interactivity.Extensions;
@@ -51,7 +54,7 @@ namespace DiscordBot.Bots
             };
             Commands = Client.UseCommandsNext(commandsConfig);
             Commands.RegisterCommands<FunCommands>();
-
+         
             await Client.ConnectAsync();
             await Task.Delay(-1);
         }

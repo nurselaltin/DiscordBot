@@ -27,4 +27,11 @@
     UnavailableService = 503,
 
   }
+
+    public enum Platform
+    {
+        Medium = 0,
+        Youtube = 1,
+        Discord = 2
+    }
 }
