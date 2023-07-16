@@ -20,7 +20,7 @@ namespace DiscordBotLog.Controllers
     {
        var models = new List<DiscordLogModel>();
        var linkDal = new DiscordLogDal();
-       List<DiscordLog> links = linkDal.ToList(x => x.IsDeleted == false).ToList();
+       List<DiscordLog> links = linkDal.ToList(x => x.IsDeleted == false).OrderByDescending(x => x.ID).ToList();
 
        foreach (var item in links)
        {
